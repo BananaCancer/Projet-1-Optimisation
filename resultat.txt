@@ -1,0 +1,54 @@
+Fit Name: L’élévation avale en fonction du débit totat
+
+Polynomial Curve Fit (poly2)
+f(x) = p1*x^2 + p2*x + p3
+
+Coefficients and 95% Confidence Bounds
+         Value          Lower          Upper    
+p1    18.1873        18.0008        18.3737    
+p2    -3.5883e+03    -3.6272e+03    -3.5494e+03
+p3    1.7713e+05     1.7510e+05     1.7916e+05 
+
+Goodness of Fit
+              Value    
+SSE         2.8031e+07
+R-square    0.9782    
+DFE         43821     
+Adj R-sq    0.9782    
+RMSE        25.2916   
+
+========================================
+========= TURBINE 1 =========
+Fit Name: La puissance produite en fonction de la hauteur de chute nette et du débit turbiné
+
+Polynomial Surface Fit (poly22)
+f(x,y) = p00 + p10*x + p01*y + p20*x^2 + p11*x*y + p02*y^2
+
+Coefficients and 95% Confidence Bounds
+        Value       Lower       Upper   
+p00    567.6981    550.9036    584.4926
+p10    8.8651      8.7657      8.9645  
+p01    -34.9328    -35.8957    -33.9699
+p20    0.0157      0.0155      0.0159  
+p11    -0.1785     -0.1813     -0.1757 
+p02    0.5354      0.5214      0.5494  
+
+Goodness of Fit
+              Value    
+SSE         1.5560e+05
+R-square    0.9988    
+DFE         43818     
+Adj R-sq    0.9988    
+RMSE        1.8844   
+ 
+========================================
+========= TURBINE 2 =========
+
+========================================
+========= TURBINE 3 =========
+
+========================================
+========= TURBINE 4 =========
+
+========================================
+========= TURBINE 5 =========
