@@ -1,6 +1,21 @@
+<<<<<<< HEAD
 Data = readtable("data\DataProjet2024.xlsx");
 Y_aval = table2array(Data(:,"Elav_m_"));
 X_deb_total = table2array(Data(:,"Qtot_m3_s_"));
+=======
+cftoolData = readtable("data\DataProjet2024.xlsx");
+X_aval = table2array(Data(:,"Elav_m_"));
+Y_deb_total = table2array(Data(:,"Qtot_m3_s_"));
+
+y = preprocess(X_aval, "Elevation aval");
+y = preprocess(Y_deb_total, "Débit total");
+
+% L'élévation avale en fonction du débit total
+f=fit(X_aval,Y_deb_total,'poly2');
+plot(f);
+hold on;
+scatter(X_aval,Y_deb_total);
+>>>>>>> c8e5e3209dfee53582c731c7e3495b291102f7bf
 
 % La puissance produite en fonction de la hauteur de chute nette et du débit turbiné,
 % et ce, pour chaque turbine.
