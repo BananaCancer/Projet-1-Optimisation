@@ -1,0 +1,151 @@
+Fit Name: L’élévation avale en fonction du débit totat
+
+Polynomial Curve Fit (poly2)
+f(x) = p1*x^2 + p2*x + p3
+
+Coefficients and 95% Confidence Bounds
+         Value          Lower          Upper    
+p1    18.1873        18.0008        18.3737    
+p2    -3.5883e+03    -3.6272e+03    -3.5494e+03
+p3    1.7713e+05     1.7510e+05     1.7916e+05 
+
+Goodness of Fit
+              Value    
+SSE         2.8031e+07
+R-square    0.9782    
+DFE         43821     
+Adj R-sq    0.9782    
+RMSE        25.2916   
+
+========================================
+========= TURBINE 1 =========
+Fit Name: La puissance produite en fonction de la hauteur de chute nette et du débit turbiné
+
+Polynomial Surface Fit (poly22)
+f(x,y) = p00 + p10*x + p01*y + p20*x^2 + p11*x*y + p02*y^2
+
+Coefficients and 95% Confidence Bounds
+        Value       Lower       Upper   
+p00    567.6981    550.9036    584.4926
+p10    8.8651      8.7657      8.9645  
+p01    -34.9328    -35.8957    -33.9699
+p20    0.0157      0.0155      0.0159  
+p11    -0.1785     -0.1813     -0.1757 
+p02    0.5354      0.5214      0.5494  
+
+Goodness of Fit
+              Value    
+SSE         1.5560e+05
+R-square    0.9988    
+DFE         43818     
+Adj R-sq    0.9988    
+RMSE        1.8844   
+ 
+========================================
+========= TURBINE 2 =========
+
+Fit Name: La puissance produite en fonction de la hauteur de chute nette et du débit turbiné
+
+Polynomial Surface Fit (poly32)
+f(x,y) = p00 + p10*x + p01*y + p20*x^2 + p11*x*y + p02*y^2 + p30*x^3 + p21*x^2*y + p12*x*y^2
+
+Coefficients and 95% Confidence Bounds
+        Value       Lower       Upper   
+p00    282.9816    173.7846    392.1786
+p10    13.2541     10.5480     15.9603 
+p01    -16.1775    -22.4292    -9.9258 
+p20    0.1483      0.1427      0.1539  
+p11    -0.6993     -0.8492     -0.5495 
+p02    0.2312      0.1417      0.3206  
+p30    0.0025      0.0025      0.0025  
+p21    -0.0105     -0.0106     -0.0103 
+p12    0.0157      0.0136      0.0177  
+
+Goodness of Fit
+              Value    
+SSE         3.7662e+04
+R-square    0.9997    
+DFE         43815     
+Adj R-sq    0.9997    
+RMSE        0.9271    
+
+========================================
+========= TURBINE 3 =========
+Fit Name: untitled fit 1
+
+Polynomial Surface Fit (poly23)
+f(x,y) = p00 + p10*x + p01*y + p20*x^2 + p11*x*y + p02*y^2 + p21*x^2*y + p12*x*y^2 + p03*y^3
+
+Coefficients and 95% Confidence Bounds
+         Value         Lower         Upper    
+p00    7.0744e+03    6.8058e+03    7.3430e+03
+p10    -61.1440      -64.0678      -58.2201  
+p01    -564.8063     -587.7699     -541.8428 
+p20    0.8679        0.8594        0.8763    
+p11    2.7777        2.6149        2.9406    
+p02    14.9255       14.2570       15.5940   
+p21    -0.0252       -0.0254       -0.0249   
+p12    -0.0264       -0.0286       -0.0241   
+p03    -0.1304       -0.1370       -0.1238   
+
+Goodness of Fit
+              Value    
+SSE         4.2305e+04
+R-square    0.9997    
+DFE         43815     
+Adj R-sq    0.9997    
+RMSE        0.9826    
+========================================
+========= TURBINE 4 =========
+Fit Name: untitled fit 1
+
+Polynomial Surface Fit (poly32)
+f(x,y) = p00 + p10*x + p01*y + p20*x^2 + p11*x*y + p02*y^2 + p30*x^3 + p21*x^2*y + p12*x*y^2
+
+Coefficients and 95% Confidence Bounds
+          Value          Lower          Upper    
+p00    -2.3652e+03    -2.5646e+03    -2.1658e+03
+p10    80.9027        76.0448        85.7607    
+p01    135.2551       123.9858       146.5244   
+p20    -0.0084        -0.0201        0.0032     
+p11    -4.3751        -4.6385        -4.1117    
+p02    -1.9335        -2.0927        -1.7742    
+p30    0.0030         0.0029         0.0030     
+p21    -0.0072        -0.0075        -0.0069    
+p12    0.0661         0.0625         0.0697     
+
+Goodness of Fit
+              Value    
+SSE         4.0043e+04
+R-square    0.9973    
+DFE         43815     
+Adj R-sq    0.9973    
+RMSE        0.9560    
+========================================
+========= TURBINE 5 =========
+
+Fit Name: untitled fit 1
+
+Polynomial Surface Fit (poly33)
+f(x,y) = p00 + p10*x + p01*y + p20*x^2 + p11*x*y + p02*y^2 + p30*x^3 + p21*x^2*y + p12*x*y^2 + p03*y^3
+
+Coefficients and 95% Confidence Bounds
+        Value       Lower       Upper   
+p00    70.8639    -130.2244    271.9521
+p10    8.2703     5.7933       10.7473 
+p01    11.2367    -6.4999      28.9733 
+p20    0.1521     0.1464       0.1578  
+p11    -0.4270    -0.5633      -0.2907 
+p02    -0.8153    -1.3534      -0.2772 
+p30    0.0024     0.0024       0.0025  
+p21    -0.0106    -0.0107      -0.0104 
+p12    0.0119     0.0101       0.0138  
+p03    0.0125     0.0069       0.0180  
+
+Goodness of Fit
+              Value    
+SSE         2.8423e+04
+R-square    0.9998    
+DFE         43814     
+Adj R-sq    0.9998    
+RMSE        0.8054    
