@@ -232,6 +232,18 @@ def calcule_puissance_tableau_middle(df_tableau_this_turbine: pd.DataFrame,
   return df_tableau_this_turbine
 
 
+def forward_pass(df_tableau_this_turbine : pd.DataFrame,
+                 df_tableau_turbine_after :pd.DataFrame,
+                 number_to_choose: int) -> pd.DataFrame:
+  debit_restant = df_tableau_this_turbine.index[0]
+  debit_choose = df_tableau_this_turbine.loc[debit_restant,f"X{number_to_choose-1}"]
+
+  debit_restant_after = debit_restant - debit_choose
+  # debit_choose_after = df_tableau_turbine_after.loc[debit_restant_after,f"X{number_to_choose}"]
+
+  final_df = df_tableau_turbine_after.loc[[debit_restant_after]]
+  return final_df
+
 
 if __name__ == "__main__":
   
@@ -276,7 +288,35 @@ if __name__ == "__main__":
                                                   df_tableau_before_turbine=copy.copy(df_tableau_2),
                                                   formule_puissance_turbine=puissance_turbine_1,
                                                   number_of_this_turbine=1)
-  print(df_tableau_1[-10:])
+  df_tableau_1_choose = copy.copy(df_tableau_1)
+
+  df_tableau_2_choose = forward_pass(df_tableau_this_turbine=copy.copy(df_tableau_1_choose),
+                                      df_tableau_turbine_after=copy.copy(df_tableau_2),
+                                      number_to_choose = 2)
+  # print(type(df_tableau_2_choose))
+  # print(type(df_tableau_1))
+  # print(df_tableau_2_choose)
+  
+  df_tableau_3_choose = forward_pass(df_tableau_this_turbine=copy.copy(df_tableau_2_choose),
+                                      df_tableau_turbine_after=copy.copy(df_tableau_3),
+                                      number_to_choose = 3)
+
+  
+  df_tableau_4_choose = forward_pass(df_tableau_this_turbine=copy.copy(df_tableau_3_choose),
+                                      df_tableau_turbine_after=copy.copy(df_tableau_4),
+                                      number_to_choose = 4)
+
+  df_tableau_5_choose = forward_pass(df_tableau_this_turbine=copy.copy(df_tableau_4_choose),
+                                      df_tableau_turbine_after=copy.copy(df_tableau_5),
+                                      number_to_choose = 5)
+  
+  print(" ========================================= ")
+  print(f"turbine 1 : Q1 = {df_tableau_1_choose['X1'].values[0]}")
+  print(f"turbine 2 : Q2 = {df_tableau_2_choose['X2'].values[0]}")
+  print(f"turbine 3 : Q3 = {df_tableau_3_choose['X3'].values[0]}")
+  print(f"turbine 4 : Q4 = {df_tableau_4_choose['X4'].values[0]}")
+  print(f"turbine 5 : Q5 = {df_tableau_5_choose['X5'].values[0]}")
+
 
 
 
