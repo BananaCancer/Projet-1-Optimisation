@@ -93,7 +93,7 @@ def list_turbine_restant(nb_turbine: int = 5) -> Dict[int,List[int]]:
 
   return result
 
-def list_tubine():
+def list_debit_turbine():
    """
    return Debit de la turbine possible
    """
@@ -246,15 +246,12 @@ def forward_pass(df_tableau_this_turbine : pd.DataFrame,
 
 
 if __name__ == "__main__":
-  
-
-
   # ====
   debit_restant = list_turbine_restant(nb_turbine=NB_TURBINE)
   # for i in debit_restant.keys():
   #   print(f" {i}: {debit_restant[i][0]} - {debit_restant[i][-1]} => {len(debit_restant[i])}")
   # # ====
-  turbine_possible = list_tubine()
+  turbine_possible = list_debit_turbine()
   df_tableau = create_df_tableau_for_each_turbine(nb_turbine=NB_TURBINE,
                                                   debit_restant=debit_restant,
                                                   turbine_possible=turbine_possible)
