@@ -10,7 +10,7 @@ MAX_DEBIT = 160
 PAS_DEBIT = 5
 
 
-Q_TOTAL = 	580 # doit être multiple de PAS_DEBIT sinon erreur
+Q_TOTAL = 	540 # doit être multiple de PAS_DEBIT sinon erreur
 
 NIVEAU_AMONT = 	137.89
 
@@ -19,7 +19,7 @@ NB_TURBINE = 5
 # L’élévation avale en fonction du débit totat	
 # f(x) = p1*x^2 + p2*x + p3	
 
-elevation_avale_en_fonction_du_debit_total = [0,7.00E-03,1.00E+02] # [p1, p2, p3] 
+elevation_avale_en_fonction_du_debit_total = [-1.453*10**(-6), 0.007022, 99.9812] # [p1, p2, p3] 
 
 # puissance turbine 1 = 1.1018 − 0.0487x − 0.0319y + 0.0022x2 + 0.0033xy
 # puissance turbine 2 = 0.6987 − 0.1750x − 0.0201y + 0.0036x2 + 0.0042xy − 1.6988 × 10−5x3 + 3.5401 × 10−5x2y
@@ -32,20 +32,20 @@ elevation_avale_en_fonction_du_debit_total = [0,7.00E-03,1.00E+02] # [p1, p2, p3
 # x : debit
 # y : Chute nette
 
-# turbine 1
-puissance_turbine_1 = [1.1018, -0.0487, -0.0319, 0.0022, 0.0033, 0, 0, 0, 0, 0]
+# turbine 1             p00  |    x    |    y    |   x^2   |   x*y   |   y^2   |       x^3       |      x^2*y    |  x*y^2  |   y^3   |                   
+puissance_turbine_1 = [1.1018, -0.04866, -0.03187, 0.002182, 0.003308,    0    , -1.2771*10**(-5), 3.683*10**(-5),     0   ,     0   ]
 
-# turbine 2
-puissance_turbine_2 = [0.6987, -0.1750, -0.0201, 0.0036, 0.0042, 0, -1.6988*10**(-5),10**(-5),0]
+# turbine 2             p00  |    x    |    y    |   x^2   |   x*y   |   y^2   |       x^3       |      x^2*y     |  x*y^2  |   y^3   |
+puissance_turbine_2 = [0.6987, -0.17500, -0.02011, 0.003632, 0.004154,    0    , -1.6988*10**(-5), 3.5401*10**(-5),     0   ,     0   ]
 
-# turbine 3
-puissance_turbine_3 = [0.7799, 0.1995, -0.0226, 0, -0.0017, 0, 0, 0.0001,0]
+# turbine 3             p00  |    x    |    y    |       x^2       |   x*y    |   y^2   |       x^3      |     x^2*y     |  x*y^2  |   y^3   |
+puissance_turbine_3 = [0.7799,  0.1995 , -0.02261, -3.519*10**(-5) , -0.001695,     0   , -9.338*10**(-5), 7.235*10**(-5),     0   ,     0   ]
 
-# turbine 4
-puissance_turbine_4 = [0.2212, -0.0487, -0.0319, 0.0022, 0.0033, 0, 0, 0, 0]
+# turbine 4             p00    |    x    |    y    |   x^2   |   x*y   |   y^2   |        x^3      |       x^2*y     |  x*y^2  |   y^3   |
+puissance_turbine_4 = [20.2212 , -0.4586, -0.577700, 0.004886, 0.011510,     0   , -1.8820*10**(-5),   1.379*10**(-5),     0   ,     0   ]
 
-# turbine 5
-puissance_turbine_5 = [-212.0739, 0.0044, 12.1707, 0.0045, -0.0068, -0.1746, -0.0000, -0.0000, 0.0003]
+# turbine 5             p00  |    x    |    y    |   x^2   |   x*y   |   y^2   |        x^3      |       x^2*y     |  x*y^2  |   y^3   |
+puissance_turbine_5 = [1.9786, 0.004009, -0.05699, 0.001064, 0.005456,     0   ,  -8.162*10**(-5),   2.849*10**(-5),     0   ,     0   ]
 		
 
 
@@ -69,7 +69,7 @@ def calculer_chute_nette(debit_turbine: Union[int,float]) -> Union[int,float]:
                     elevation_avale_en_fonction_du_debit_total[2]
 
   # Calculer la chute nette
-  chute_nette = NIVEAU_AMONT - elevation_avale - (0.5 * 10**-5 * debit_turbine**2)
+  chute_nette = NIVEAU_AMONT - elevation_avale - (0.5 * (10**-5) * (debit_turbine**2))
 
   return chute_nette
 
@@ -160,7 +160,6 @@ def calcule_puissance_tableau_first(df_tableau_this_turbine: pd.DataFrame,
     df_tableau_this_turbine.loc[debit_restant, xn] = debit_restant
     
     chute_nette = calculer_chute_nette(debit_turbine=debit_turbine)
-    
     puissance = formule_puissance_turbine[0] + \
                 formule_puissance_turbine[1] * debit_turbine +\
                 formule_puissance_turbine[2] * chute_nette + \
@@ -169,7 +168,8 @@ def calcule_puissance_tableau_first(df_tableau_this_turbine: pd.DataFrame,
                 formule_puissance_turbine[5] * chute_nette**2 +\
                 formule_puissance_turbine[6] * debit_turbine**3 +\
                 formule_puissance_turbine[7] * debit_turbine**2*chute_nette  +\
-                formule_puissance_turbine[8] * chute_nette**3 
+                formule_puissance_turbine[8] * debit_turbine*chute_nette**2  +\
+                formule_puissance_turbine[9] * chute_nette**3 
     df_tableau_this_turbine.loc[debit_restant, fn] = puissance
 
   return df_tableau_this_turbine
@@ -221,7 +221,8 @@ def calcule_puissance_tableau_middle(df_tableau_this_turbine: pd.DataFrame,
                     formule_puissance_turbine[5] * chute_nette**2 +\
                     formule_puissance_turbine[6] * debit_turbine**3 +\
                     formule_puissance_turbine[7] * debit_turbine**2*chute_nette  +\
-                    formule_puissance_turbine[8] * chute_nette**3 +\
+                    formule_puissance_turbine[8] * debit_turbine*chute_nette**2  +\
+                    formule_puissance_turbine[9] * chute_nette**3 +\
                     puissance_add
         
         df_tableau_this_turbine.loc[debit_restant, debit_turbine] = puissance
