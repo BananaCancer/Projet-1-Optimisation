@@ -2,8 +2,6 @@ Data = readtable("data\DataProjet2024.xlsx");
 Y_aval = table2array(Data(:,"Elav_m_"));
 X_deb_total = table2array(Data(:,"Qtot_m3_s_"));
 
-% y = preprocess(Y_aval, "Elevation aval");
-% y = preprocess(X_deb_total, "Débit total");
 
 
 % La puissance produite en fonction de la hauteur de chute nette et du débit turbiné,
