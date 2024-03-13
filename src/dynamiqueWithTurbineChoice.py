@@ -266,7 +266,7 @@ def loopForwardPass(turbines, filledStages):
       prevStage = i
     return dfs_choose
 
-def algo(turbines):
+def dynamicProgrammingAlgorithm(turbines):
   listeEtats = getStates(turbines)
   debits_possible = getPossibleValues()
   emptyStages = createStages(turbines, listeEtats, debits_possible)
@@ -279,33 +279,7 @@ def initResultDf():
   dfResult.loc[:, "Puissance totale"] = 0
   return dfResult
 
-if __name__ == "__main__":
-  df = pd. read_excel("data/DataProjet2024.xlsx")
-  STARTING_ROW = 2
-  ROW_COUNT = 100
-  
-  sumDifferences = 0
-  nbImprovements = 0
-  for row in range(STARTING_ROW, STARTING_ROW + ROW_COUNT + 1):
-    # Variables à set pour l'algo
-    #debit_total = round(df.iloc[row, 2] / PAS_DEBIT) * PAS_DEBIT
-    debit_total = round(df.iloc[row, 2])
-    dfResult = initResultDf()
-    dfResult.loc["Original", "Débit disponible"] = df.iloc[row, 2]
-    dfResult.loc["Computed", "Débit disponible"] = debit_total
-    niveau_amont = df.iloc[row, 5]
-    actives_turbines = []
-    for i in range(5):
-      if int(df.iloc[row, 6 + 2 * i]) != 0:
-        colNameDebit = "Débit T" + str(i + 1) 
-        colNamePuissance = "Puissance T" + str(i + 1) 
-        dfResult[colNameDebit] = 0
-        dfResult[colNamePuissance] = 0
-        dfResult.loc["Original", colNameDebit] = df.iloc[row, 6 + 2 * i]
-        dfResult.loc["Original", colNamePuissance] = df.iloc[row, 7 + 2 * i]
-        actives_turbines.append(i+1)
-        dfResult.loc["Original", "Puissance totale"] += df.iloc[row, 7 + 2 * i]
-    result = algo(actives_turbines)
+def extractResults(dfResult, actives_turbines, result):
     for i, IDturbine in enumerate(actives_turbines):
       colNameDebit = "Débit T" + str(IDturbine)
       colNamePuissance = "Puissance T" + str(IDturbine)
@@ -318,6 +292,39 @@ if __name__ == "__main__":
       dfResult.loc["Computed", colNameDebit] = currentDebit
       dfResult.loc["Computed", colNamePuissance] = currentPuissance
       dfResult.loc["Computed", "Puissance totale"] += currentPuissance
+
+def prepareData(initResultDf, df, row):
+    dfResult = initResultDf()
+    dfResult.loc["Original", "Débit disponible"] = df.iloc[row, 2]
+    dfResult.loc["Computed", "Débit disponible"] = debit_total
+    actives_turbines = []
+    for i in range(5):
+      if int(df.iloc[row, 6 + 2 * i]) != 0:
+        colNameDebit = "Débit T" + str(i + 1) 
+        colNamePuissance = "Puissance T" + str(i + 1) 
+        dfResult[colNameDebit] = 0
+        dfResult[colNamePuissance] = 0
+        dfResult.loc["Original", colNameDebit] = df.iloc[row, 6 + 2 * i]
+        dfResult.loc["Original", colNamePuissance] = df.iloc[row, 7 + 2 * i]
+        actives_turbines.append(i+1)
+        dfResult.loc["Original", "Puissance totale"] += df.iloc[row, 7 + 2 * i]
+    return dfResult,actives_turbines
+
+if __name__ == "__main__":
+  df = pd. read_excel("data/DataProjet2024.xlsx")
+  STARTING_ROW = 2
+  ROW_COUNT = 100
+  
+  sumDifferences = 0
+  nbImprovements = 0
+  for row in range(STARTING_ROW, STARTING_ROW + ROW_COUNT + 1):
+    # Variables à set pour l'algo
+    #debit_total = round(df.iloc[row, 2] / PAS_DEBIT) * PAS_DEBIT
+    debit_total = round(df.iloc[row, 2])
+    niveau_amont = df.iloc[row, 5]
+    dfResult, actives_turbines = prepareData(initResultDf, df, row)
+    result = dynamicProgrammingAlgorithm(actives_turbines)
+    extractResults(dfResult, actives_turbines, result)
     print(dfResult)
     currentDifference = dfResult.loc["Computed", "Puissance totale"] - dfResult.loc["Original", "Puissance totale"]
     if currentDifference > 0:
