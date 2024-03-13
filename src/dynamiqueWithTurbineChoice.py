@@ -1,6 +1,6 @@
 import copy
 from typing import Dict, List, Union
-
+from time import time
 import numpy as np
 import pandas as pd
 
@@ -317,13 +317,17 @@ if __name__ == "__main__":
   
   sumDifferences = 0
   nbImprovements = 0
+  sumTime = 0
   for row in range(STARTING_ROW, STARTING_ROW + ROW_COUNT + 1):
     # Variables à set pour l'algo
     #debit_total = round(df.iloc[row, 2] / PAS_DEBIT) * PAS_DEBIT
     debit_total = round(df.iloc[row, 2])
     niveau_amont = df.iloc[row, 5]
     dfResult, actives_turbines = prepareData(initResultDf, df, row)
+    start = time()
     result = dynamicProgrammingAlgorithm(actives_turbines)
+    ttl_time = time() - start
+    sumTime += ttl_time
     extractResults(dfResult, actives_turbines, result)
     print(dfResult)
     currentDifference = dfResult.loc["Computed", "Puissance totale"] - dfResult.loc["Original", "Puissance totale"]
@@ -332,3 +336,4 @@ if __name__ == "__main__":
     sumDifferences += currentDifference
   print(sumDifferences)
   print(nbImprovements)
+  print(f"Average time: {sumTime/ROW_COUNT}")
